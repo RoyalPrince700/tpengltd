@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
+import { Mail, Phone } from 'lucide-react'
 import { companyInfo } from '../data/services'
 
 const links = [
@@ -25,8 +26,10 @@ export default function Navbar() {
       <div className="topbar">
         <div className="container topbar-inner">
           <div className="topbar-group">
-            <a href={companyInfo.phoneHref}>📞 {companyInfo.phone}</a>
-            <a href={companyInfo.emailHref}>✉️ {companyInfo.email}</a>
+            {companyInfo.phones.map((p) => (
+              <a key={p.href} href={p.href}><Phone size={14} aria-hidden="true" /> {p.display}</a>
+            ))}
+            <a href={companyInfo.emailHref}><Mail size={14} aria-hidden="true" /> {companyInfo.email}</a>
           </div>
           <span className="topbar-note">Upstream · Midstream · Downstream</span>
         </div>

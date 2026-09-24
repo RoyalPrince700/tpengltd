@@ -1,16 +1,17 @@
 import { Link } from 'react-router-dom'
+import { BarChart3, Check, Flame, Handshake, Shield, Star, type LucideIcon } from 'lucide-react'
 import Hero from '../components/Hero'
 import Reveal from '../components/Reveal'
 import Counter from '../components/Counter'
 import CtaBand from '../components/CtaBand'
 import { services } from '../data/services'
 
-const values = [
-  { icon: '🔥', name: 'Passion', text: 'We bring energy and commitment to every project.' },
-  { icon: '🤝', name: 'Respect', text: 'We value our people, clients and communities.' },
-  { icon: '🛡️', name: 'Integrity', text: 'We do what is right — always and everywhere.' },
-  { icon: '📊', name: 'Monitoring', text: 'We measure, track and assure every deliverable.' },
-  { icon: '⭐', name: 'Excellence', text: 'We hold ourselves to the highest quality standard.' },
+const values: { icon: LucideIcon; name: string; text: string }[] = [
+  { icon: Flame, name: 'Passion', text: 'We bring energy and commitment to every project.' },
+  { icon: Handshake, name: 'Respect', text: 'We value our people, clients and communities.' },
+  { icon: Shield, name: 'Integrity', text: 'We do what is right — always and everywhere.' },
+  { icon: BarChart3, name: 'Monitoring', text: 'We measure, track and assure every deliverable.' },
+  { icon: Star, name: 'Excellence', text: 'We hold ourselves to the highest quality standard.' },
 ]
 
 export default function Home() {
@@ -73,10 +74,10 @@ export default function Home() {
               oil &amp; gas industry, marine and energy industry.
             </p>
             <ul className="check-list">
-              <li><span className="tick">✓</span> Exceptional engineering, procurement and logistics services</li>
-              <li><span className="tick">✓</span> Asset buy-back and construction services</li>
-              <li><span className="tick">✓</span> Highest quality standard, utmost professionalism</li>
-              <li><span className="tick">✓</span> Client satisfaction at the centre of everything we do</li>
+              <li><span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Exceptional engineering, procurement and logistics services</li>
+              <li><span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Asset buy-back and construction services</li>
+              <li><span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Highest quality standard, utmost professionalism</li>
+              <li><span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Client satisfaction at the centre of everything we do</li>
             </ul>
             <Link to="/about" className="btn btn-green">
               Learn More <span className="arrow">→</span>
@@ -135,7 +136,7 @@ export default function Home() {
             {values.map((v, i) => (
               <Reveal key={v.name} delay={i * 90}>
                 <div className="value-card">
-                  <div className="icon">{v.icon}</div>
+                  <div className="icon" aria-hidden="true"><v.icon size={26} /></div>
                   <h3>{v.name}</h3>
                   <p>{v.text}</p>
                 </div>

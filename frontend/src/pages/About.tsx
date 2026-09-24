@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
+import { Check, Globe, Mail, MapPin, Phone, Rocket, Target } from 'lucide-react'
 import PageBanner from '../components/PageBanner'
 import Reveal from '../components/Reveal'
 import CtaBand from '../components/CtaBand'
 import ceoImg from '../assets/ceo.png'
+import { companyInfo } from '../data/services'
 
 const competencies = [
   'Strategic Procurement & Oil & Gas Contracting',
@@ -76,7 +78,7 @@ export default function About() {
             />
             <img
               className="float-img"
-              src="/images/pipe.jpg"
+              src="/images/pipeline1.jpg"
               alt="Pipeline manifold with red valve wheels"
               loading="lazy"
             />
@@ -133,18 +135,18 @@ export default function About() {
                 <p className="sub-head">Upstream Oil &amp; Gas · Pre-qualified Vendors Management System</p>
                 <ul className="check-list">
                   <li>
-                    <span className="tick">✓</span> Managed high-value procurement and contracting
+                    <span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Managed high-value procurement and contracting
                     for upstream oil &amp; gas operations
                   </li>
                   <li>
-                    <span className="tick">✓</span> Drove cost optimization, vendor performance,
+                    <span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Drove cost optimization, vendor performance,
                     and compliance with procurement policies
                   </li>
                 </ul>
                 <p className="sub-head">Chairman/CEO — TPENG Limited, Lagos, Nigeria</p>
                 <ul className="check-list">
                   <li>
-                    <span className="tick">✓</span> Leading a full-service energy company providing
+                    <span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Leading a full-service energy company providing
                     contracting, distribution, logistics, and training solutions
                   </li>
                 </ul>
@@ -168,11 +170,11 @@ export default function About() {
                 <p className="sub-head">Professional Fellowship</p>
                 <ul className="check-list">
                   <li>
-                    <span className="tick">✓</span> Fellow, Center for Public Service Productivity
+                    <span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Fellow, Center for Public Service Productivity
                     and Development (CEPROD) Global
                   </li>
                   <li>
-                    <span className="tick">✓</span> Member, British Project Professionals (BPP)
+                    <span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Member, British Project Professionals (BPP)
                   </li>
                 </ul>
               </div>
@@ -183,23 +185,25 @@ export default function About() {
             <div className="founder-contact">
               <h3>Reach the Founder&rsquo;s Office</h3>
               <span className="item">
-                📞&nbsp;
+                <Phone size={16} aria-hidden="true" />
                 <span>
-                  <a href="tel:+2347050521111">+234 705 052 1111</a>,{' '}
-                  <a href="tel:+2348137620368">+234 813 762 0368</a>
+                  <a href="tel:+2348033042847">+234 803 304 2847</a>,{' '}
+                  <a href="tel:+2347050521112">+234 705 052 1112</a>
                 </span>
               </span>
               <span className="item">
-                ✉️&nbsp;<a href="mailto:info@tpengltd.com">info@tpengltd.com</a>
+                <Mail size={16} aria-hidden="true" />
+                <a href="mailto:info@tpenglimited.com">info@tpenglimited.com</a>
               </span>
               <span className="item">
-                🌐&nbsp;
-                <a href="https://tpengltd.com" target="_blank" rel="noopener noreferrer">
-                  tpengltd.com
+                <Globe size={16} aria-hidden="true" />
+                <a href="https://tpenglimited.com" target="_blank" rel="noopener noreferrer">
+                  tpenglimited.com
                 </a>
               </span>
               <span className="item">
-                📍&nbsp;9, Aina Crescent, Cashew Estate, Off Oreta Road, Igbogbo, Ikorodu, Lagos
+                <MapPin size={16} aria-hidden="true" />
+                {companyInfo.address}
               </span>
             </div>
           </Reveal>
@@ -216,7 +220,7 @@ export default function About() {
           <div className="vm-grid">
             <Reveal>
               <div className="vm-card vision">
-                <div className="glyph">🎯</div>
+                <div className="glyph" aria-hidden="true"><Target size={28} /></div>
                 <h3>Our Vision</h3>
                 <p>
                   To render excellent services using business to inspire, and to be the leading
@@ -226,7 +230,7 @@ export default function About() {
             </Reveal>
             <Reveal delay={120}>
               <div className="vm-card mission">
-                <div className="glyph">🚀</div>
+                <div className="glyph" aria-hidden="true"><Rocket size={28} /></div>
                 <h3>Our Mission</h3>
                 <p>
                   Whatever we do, we think to the end of the project. Every engagement is planned,
@@ -256,11 +260,11 @@ export default function About() {
               monitoring and excellence — across upstream, midstream and downstream operations.
             </p>
             <ul className="check-list">
-              <li><span className="tick">✓</span> Indigenous knowledge, international standards</li>
-              <li><span className="tick">✓</span> Strict compliance to quality plans and specifications</li>
-              <li><span className="tick">✓</span> Specialized manpower and training capability</li>
-              <li><span className="tick">✓</span> End-to-end thinking on every project</li>
-              <li><span className="tick">✓</span> Marine, oil &amp; gas and energy industry coverage</li>
+              <li><span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Indigenous knowledge, international standards</li>
+              <li><span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Strict compliance to quality plans and specifications</li>
+              <li><span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Specialized manpower and training capability</li>
+              <li><span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> End-to-end thinking on every project</li>
+              <li><span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> Marine, oil &amp; gas and energy industry coverage</li>
             </ul>
           </Reveal>
         </div>

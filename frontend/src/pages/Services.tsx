@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation, Link } from 'react-router-dom'
+import { Check } from 'lucide-react'
 import PageBanner from '../components/PageBanner'
 import Reveal from '../components/Reveal'
 import CtaBand from '../components/CtaBand'
@@ -51,7 +52,7 @@ export default function Services() {
                 <ul className="check-list">
                   {s.points.map((p) => (
                     <li key={p}>
-                      <span className="tick">✓</span> {p}
+                      <span className="tick" aria-hidden="true"><Check size={14} strokeWidth={3} /></span> {p}
                     </li>
                   ))}
                 </ul>

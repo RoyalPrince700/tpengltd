@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Mail, MapPin, Phone } from 'lucide-react'
 import { services, companyInfo } from '../data/services'
 
 export default function Footer() {
@@ -46,15 +47,22 @@ export default function Footer() {
             <h4>Get in Touch</h4>
             <ul className="footer-contact">
               <li>
-                <span className="ico">📍</span>
+                <span className="ico" aria-hidden="true"><MapPin size={16} /></span>
                 <span>{companyInfo.address}</span>
               </li>
               <li>
-                <span className="ico">📞</span>
-                <a href={companyInfo.phoneHref}>{companyInfo.phone}</a>
+                <span className="ico" aria-hidden="true"><Phone size={16} /></span>
+                <span>
+                  {companyInfo.phones.map((p, i) => (
+                    <span key={p.href}>
+                      {i > 0 && ', '}
+                      <a href={p.href}>{p.display}</a>
+                    </span>
+                  ))}
+                </span>
               </li>
               <li>
-                <span className="ico">✉️</span>
+                <span className="ico" aria-hidden="true"><Mail size={16} /></span>
                 <a href={companyInfo.emailHref}>{companyInfo.email}</a>
               </li>
             </ul>

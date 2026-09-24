@@ -36,7 +36,7 @@ export const services: Service[] = [
       'Preventive and corrective maintenance',
       'Strict HSE and quality compliance',
     ],
-    image: '/images/pipe.jpg',
+    image: '/images/pipeline1.jpg',
   },
   {
     id: 'manpower-training',
@@ -103,11 +103,15 @@ export const services: Service[] = [
 export const companyInfo = {
   name: 'Tulolag Petroleum Energy Ltd',
   fullName: 'Tulolag Petroleum & Gas and Energy Limited',
-  phone: '+234 803 816 3299',
-  phoneHref: 'tel:+2348038163299',
-  email: 'info@tulolagpetroleumenergyltd.com',
-  emailHref: 'mailto:info@tulolagpetroleumenergyltd.com',
-  address: '11, Ogunyomi Street, Olopomeji Oworonsoki, Lagos, Nigeria',
+  phones: [
+    { display: '+234 803 304 2847', href: 'tel:+2348033042847' },
+    { display: '+234 705 052 1112', href: 'tel:+2347050521112' },
+  ],
+  email: 'info@tpenglimited.com',
+  emailHref: 'mailto:info@tpenglimited.com',
+  website: 'tpenglimited.com',
+  websiteHref: 'https://tpenglimited.com',
+  address: '9, Aina Crescent, Cashew Estate, Off Oreta Road, Igbogbo, Ikorodu, Lagos',
   mapEmbed:
-    'https://maps.google.com/maps?q=11%2C%20Ogunyomi%20Street%2C%20Olopomeji%20Oworonsoki%2C%20Lagos.%20Nigeria&t=m&z=14&output=embed&iwloc=near',
+    'https://maps.google.com/maps?q=9%2C%20Aina%20Crescent%2C%20Cashew%20Estate%2C%20Off%20Oreta%20Road%2C%20Igbogbo%2C%20Ikorodu%2C%20Lagos&t=m&z=14&output=embed&iwloc=near',
 }

@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { Mail, MapPin, Phone } from 'lucide-react'
 import PageBanner from '../components/PageBanner'
 import Reveal from '../components/Reveal'
 import { companyInfo, services } from '../data/services'
@@ -41,23 +42,28 @@ export default function Contact() {
           <div className="contact-grid">
             <Reveal>
               <div className="contact-card">
-                <div className="icon">📍</div>
+                <div className="icon" aria-hidden="true"><MapPin size={26} /></div>
                 <h3>Visit Our Office</h3>
                 <p>{companyInfo.address}</p>
               </div>
             </Reveal>
             <Reveal delay={100}>
               <div className="contact-card">
-                <div className="icon">📞</div>
+                <div className="icon" aria-hidden="true"><Phone size={26} /></div>
                 <h3>Call Us</h3>
                 <p>
-                  <a href={companyInfo.phoneHref}>{companyInfo.phone}</a>
+                  {companyInfo.phones.map((p, i) => (
+                    <span key={p.href}>
+                      {i > 0 && <br />}
+                      <a href={p.href}>{p.display}</a>
+                    </span>
+                  ))}
                 </p>
               </div>
             </Reveal>
             <Reveal delay={200}>
               <div className="contact-card">
-                <div className="icon">✉️</div>
+                <div className="icon" aria-hidden="true"><Mail size={26} /></div>
                 <h3>Email Us</h3>
                 <p>
                   <a href={companyInfo.emailHref}>{companyInfo.email}</a>
