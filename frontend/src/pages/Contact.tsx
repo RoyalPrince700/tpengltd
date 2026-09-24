@@ -8,6 +8,7 @@ type FormStatus = 'idle' | 'sending' | 'sent' | 'error'
 
 export default function Contact() {
   const [status, setStatus] = useState<FormStatus>('idle')
+  const [errorCode, setErrorCode] = useState('')
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -20,6 +21,8 @@ export default function Contact() {
     const message = String(data.get('message') || '').trim()
 
     setStatus('sending')
+    setErrorCode('')
+    let diagnosticCode = 'NETWORK_ERROR'
 
     try {
       const res = await fetch('/api/contact', {
@@ -40,16 +43,26 @@ export default function Contact() {
 
       const result = (await res.json().catch(() => null)) as {
         success?: boolean
+        code?: string
         message?: string
       } | null
 
       if (!res.ok || !result?.success) {
+        diagnosticCode = result?.code || `HTTP_${res.status}`
+        console.error('Contact form request failed', {
+          status: res.status,
+          code: diagnosticCode,
+          message: result?.message || 'Non-JSON response from contact API',
+        })
         throw new Error(result?.message || 'Failed to send')
       }
 
+      console.info('Contact form request succeeded')
       setStatus('sent')
       form.reset()
-    } catch {
+    } catch (error) {
+      console.error('Contact form submission error', error)
+      setErrorCode(diagnosticCode)
       setStatus('error')
     }
   }
@@ -180,6 +193,7 @@ export default function Contact() {
                   <p className="form-status form-status-error">
                     Something went wrong. Please email us directly at{' '}
                     <a href={companyInfo.emailHref}>{companyInfo.email}</a>.
+                    {errorCode && <><br />Reference: {errorCode}</>}
                   </p>
                 )}
               </form>

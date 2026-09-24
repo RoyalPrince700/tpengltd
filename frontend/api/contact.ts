@@ -34,8 +34,16 @@ export default async function handler(request: Request) {
   const fromEmail = process.env.CONTACT_FROM_EMAIL
 
   if (!apiKey || !fromEmail) {
+    console.error('Contact email configuration missing', {
+      hasApiKey: Boolean(apiKey),
+      hasFromEmail: Boolean(fromEmail),
+    })
     return Response.json(
-      { success: false, message: 'Email service is not configured' },
+      {
+        success: false,
+        code: 'EMAIL_NOT_CONFIGURED',
+        message: 'Email service is not configured',
+      },
       { status: 500 },
     )
   }
@@ -57,10 +65,16 @@ export default async function handler(request: Request) {
 
     if (!name || !emailPattern.test(email) || !message) {
       return Response.json(
-        { success: false, message: 'Please provide a valid name, email, and message' },
+        {
+          success: false,
+          code: 'INVALID_FORM',
+          message: 'Please provide a valid name, email, and message',
+        },
         { status: 400 },
       )
     }
+
+    console.info('Contact form submission received', { service })
 
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -96,12 +110,24 @@ export default async function handler(request: Request) {
     if (!response.ok) {
       const error = await response.text()
       console.error('Resend rejected contact email:', response.status, error)
-      return Response.json({ success: false, message: 'Email could not be sent' }, { status: 502 })
+      return Response.json(
+        {
+          success: false,
+          code: 'RESEND_REJECTED',
+          message: 'Email could not be sent',
+        },
+        { status: 502 },
+      )
     }
 
+    const result = (await response.json()) as { id?: string }
+    console.info('Contact email sent', { emailId: result.id ?? 'unknown' })
     return Response.json({ success: true })
   } catch (error) {
     console.error('Contact form error:', error)
-    return Response.json({ success: false, message: 'Invalid request' }, { status: 400 })
+    return Response.json(
+      { success: false, code: 'INVALID_REQUEST', message: 'Invalid request' },
+      { status: 400 },
+    )
   }
 }
