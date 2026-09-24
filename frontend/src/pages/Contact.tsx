@@ -4,22 +4,49 @@ import PageBanner from '../components/PageBanner'
 import Reveal from '../components/Reveal'
 import { companyInfo, services } from '../data/services'
 
-export default function Contact() {
-  const [sent, setSent] = useState(false)
+type FormStatus = 'idle' | 'sending' | 'sent' | 'error'
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+export default function Contact() {
+  const [status, setStatus] = useState<FormStatus>('idle')
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
     const data = new FormData(form)
-    const subject = encodeURIComponent(
-      `Website Enquiry: ${data.get('service') || 'General'} — ${data.get('name')}`,
-    )
-    const body = encodeURIComponent(
-      `Name: ${data.get('name')}\nEmail: ${data.get('email')}\nPhone: ${data.get('phone')}\nService: ${data.get('service')}\n\n${data.get('message')}`,
-    )
-    window.location.href = `${companyInfo.emailHref}?subject=${subject}&body=${body}`
-    setSent(true)
-    form.reset()
+    const name = String(data.get('name') || '').trim()
+    const email = String(data.get('email') || '').trim()
+    const phone = String(data.get('phone') || '').trim() || 'Not provided'
+    const service = String(data.get('service') || '').trim() || 'General Enquiry'
+    const message = String(data.get('message') || '').trim()
+
+    setStatus('sending')
+
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${companyInfo.email}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          service,
+          message,
+          _subject: `Website Enquiry: ${service} — ${name}`,
+          _replyto: email,
+          _template: 'table',
+        }),
+      })
+
+      if (!res.ok) throw new Error('Failed to send')
+
+      setStatus('sent')
+      form.reset()
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -66,10 +93,10 @@ export default function Contact() {
                 <div className="icon" aria-hidden="true"><Mail size={26} /></div>
                 <h3>Email Us</h3>
                 <p>
-                  {companyInfo.emails.map((e, i) => (
-                    <span key={e.href}>
+                  {companyInfo.emails.map((mail, i) => (
+                    <span key={mail.href}>
                       {i > 0 && <br />}
-                      <a href={e.href}>{e.display}</a>
+                      <a href={mail.href}>{mail.display}</a>
                     </span>
                   ))}
                 </p>
@@ -123,12 +150,20 @@ export default function Contact() {
                   />
                 </div>
 
-                <button type="submit" className="btn btn-gold">
-                  Send Message <span className="arrow">→</span>
+                <button type="submit" className="btn btn-gold" disabled={status === 'sending'}>
+                  {status === 'sending' ? 'Sending…' : (
+                    <>Send Message <span className="arrow">→</span></>
+                  )}
                 </button>
-                {sent && (
+                {status === 'sent' && (
                   <p className="form-status">
-                    Your email client has been opened — send the message to complete your enquiry.
+                    Thank you — your message has been sent to {companyInfo.email}.
+                  </p>
+                )}
+                {status === 'error' && (
+                  <p className="form-status form-status-error">
+                    Something went wrong. Please email us directly at{' '}
+                    <a href={companyInfo.emailHref}>{companyInfo.email}</a>.
                   </p>
                 )}
               </form>

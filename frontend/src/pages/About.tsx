@@ -102,7 +102,7 @@ export default function About() {
               <span className="kicker">Our Founder</span>
               <h2 className="section-title">
                 Otunba Tunde S. Ogunberu
-                <span className="founder-credentials">B.Sc (Hons), MBA, FCP</span>
+                <span className="founder-credentials">B.Sc (Hons), MBA, MBPP, FCP</span>
               </h2>
               <p className="founder-role">
                 Chairman/CEO · Oil, Gas &amp; Energy Professional · Procurement &amp; Supply Chain
