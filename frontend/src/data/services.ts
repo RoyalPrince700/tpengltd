@@ -109,6 +109,10 @@ export const companyInfo = {
   ],
   email: 'info@tpenglimited.com',
   emailHref: 'mailto:info@tpenglimited.com',
+  emails: [
+    { display: 'info@tpenglimited.com', href: 'mailto:info@tpenglimited.com' },
+    { display: 'tunde.ogunberu@tpenglimited.com', href: 'mailto:tunde.ogunberu@tpenglimited.com' },
+  ],
   website: 'tpenglimited.com',
   websiteHref: 'https://tpenglimited.com',
   address: '9, Aina Crescent, Cashew Estate, Off Oreta Road, Igbogbo, Ikorodu, Lagos',

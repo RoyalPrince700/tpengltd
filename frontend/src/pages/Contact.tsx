@@ -66,7 +66,12 @@ export default function Contact() {
                 <div className="icon" aria-hidden="true"><Mail size={26} /></div>
                 <h3>Email Us</h3>
                 <p>
-                  <a href={companyInfo.emailHref}>{companyInfo.email}</a>
+                  {companyInfo.emails.map((e, i) => (
+                    <span key={e.href}>
+                      {i > 0 && <br />}
+                      <a href={e.href}>{e.display}</a>
+                    </span>
+                  ))}
                 </p>
               </div>
             </Reveal>
