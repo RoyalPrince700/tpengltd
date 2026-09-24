@@ -4,7 +4,7 @@ import PageBanner from '../components/PageBanner'
 import Reveal from '../components/Reveal'
 import { companyInfo, services } from '../data/services'
 
-type FormStatus = 'idle' | 'sending' | 'sent' | 'error'
+type FormStatus = 'idle' | 'sending' | 'sent' | 'pending' | 'error'
 
 export default function Contact() {
   const [status, setStatus] = useState<FormStatus>('idle')
@@ -37,12 +37,23 @@ export default function Contact() {
           _subject: `Website Enquiry: ${service} — ${name}`,
           _replyto: email,
           _template: 'table',
+          _url: companyInfo.websiteHref,
         }),
       })
 
-      if (!res.ok) throw new Error('Failed to send')
+      const result = (await res.json().catch(() => null)) as {
+        success?: string | boolean
+        message?: string
+      } | null
 
-      setStatus('sent')
+      const ok = result?.success === true || result?.success === 'true'
+      if (!res.ok || !ok) {
+        throw new Error(result?.message || 'Failed to send')
+      }
+
+      // FormSubmit binds each domain separately — first live submit may need confirmation
+      const needsConfirm = /confirm|activat|check your email/i.test(result?.message || '')
+      setStatus(needsConfirm ? 'pending' : 'sent')
       form.reset()
     } catch {
       setStatus('error')
@@ -158,6 +169,12 @@ export default function Contact() {
                 {status === 'sent' && (
                   <p className="form-status">
                     Thank you — your message has been sent to {companyInfo.email}.
+                  </p>
+                )}
+                {status === 'pending' && (
+                  <p className="form-status">
+                    Almost there — check {companyInfo.email} for a FormSubmit confirmation
+                    link (needed once for the live website), then try again.
                   </p>
                 )}
                 {status === 'error' && (
