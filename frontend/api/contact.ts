@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 const CONTACT_EMAIL = 'info@tpenglimited.com'
 
 type ContactPayload = {
