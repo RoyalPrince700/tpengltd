@@ -27,6 +27,7 @@ export default function Contact() {
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
+        signal: AbortSignal.timeout(15_000),
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
@@ -61,6 +62,9 @@ export default function Contact() {
       setStatus('sent')
       form.reset()
     } catch (error) {
+      if (error instanceof DOMException && error.name === 'TimeoutError') {
+        diagnosticCode = 'REQUEST_TIMEOUT'
+      }
       console.error('Contact form submission error', error)
       setErrorCode(diagnosticCode)
       setStatus('error')
