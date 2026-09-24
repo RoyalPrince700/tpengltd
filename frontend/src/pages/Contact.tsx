@@ -4,7 +4,7 @@ import PageBanner from '../components/PageBanner'
 import Reveal from '../components/Reveal'
 import { companyInfo, services } from '../data/services'
 
-type FormStatus = 'idle' | 'sending' | 'sent' | 'pending' | 'error'
+type FormStatus = 'idle' | 'sending' | 'sent' | 'error'
 
 export default function Contact() {
   const [status, setStatus] = useState<FormStatus>('idle')
@@ -22,7 +22,7 @@ export default function Contact() {
     setStatus('sending')
 
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${companyInfo.email}`, {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,26 +34,20 @@ export default function Contact() {
           phone,
           service,
           message,
-          _subject: `Website Enquiry: ${service} — ${name}`,
-          _replyto: email,
-          _template: 'table',
-          _url: companyInfo.websiteHref,
+          website: String(data.get('website') || ''),
         }),
       })
 
       const result = (await res.json().catch(() => null)) as {
-        success?: string | boolean
+        success?: boolean
         message?: string
       } | null
 
-      const ok = result?.success === true || result?.success === 'true'
-      if (!res.ok || !ok) {
+      if (!res.ok || !result?.success) {
         throw new Error(result?.message || 'Failed to send')
       }
 
-      // FormSubmit binds each domain separately — first live submit may need confirmation
-      const needsConfirm = /confirm|activat|check your email/i.test(result?.message || '')
-      setStatus(needsConfirm ? 'pending' : 'sent')
+      setStatus('sent')
       form.reset()
     } catch {
       setStatus('error')
@@ -161,6 +155,17 @@ export default function Contact() {
                   />
                 </div>
 
+                <div className="contact-honeypot" aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 <button type="submit" className="btn btn-gold" disabled={status === 'sending'}>
                   {status === 'sending' ? 'Sending…' : (
                     <>Send Message <span className="arrow">→</span></>
@@ -169,12 +174,6 @@ export default function Contact() {
                 {status === 'sent' && (
                   <p className="form-status">
                     Thank you — your message has been sent to {companyInfo.email}.
-                  </p>
-                )}
-                {status === 'pending' && (
-                  <p className="form-status">
-                    Almost there — check {companyInfo.email} for a FormSubmit confirmation
-                    link (needed once for the live website), then try again.
                   </p>
                 )}
                 {status === 'error' && (

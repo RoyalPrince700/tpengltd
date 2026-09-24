@@ -1291,6 +1291,14 @@ section {
   cursor: wait;
 }
 
+.contact-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .map-frame {
   border-radius: var(--radius);
   overflow: hidden;
