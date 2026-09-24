@@ -105,7 +105,7 @@ export const companyInfo = {
   fullName: 'Tulolag Petroleum & Gas and Energy Limited',
   phones: [
     { display: '+234 803 304 2847', href: 'tel:+2348033042847' },
-    { display: '+234 705 052 1112', href: 'tel:+2347050521112' },
+    { display: '+234 705 052 1111', href: 'tel:+2347050521111' },
   ],
   email: 'info@tpenglimited.com',
   emailHref: 'mailto:info@tpenglimited.com',

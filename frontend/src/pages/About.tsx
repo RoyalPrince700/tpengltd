@@ -188,7 +188,7 @@ export default function About() {
                 <Phone size={16} aria-hidden="true" />
                 <span>
                   <a href="tel:+2348033042847">+234 803 304 2847</a>,{' '}
-                  <a href="tel:+2347050521112">+234 705 052 1112</a>
+                  <a href="tel:+2347050521111">+234 705 052 1111</a>
                 </span>
               </span>
               <span className="item">
