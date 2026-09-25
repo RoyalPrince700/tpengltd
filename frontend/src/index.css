@@ -604,6 +604,12 @@ section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 26px;
+  align-items: stretch;
+}
+
+.services-grid > .reveal {
+  height: 100%;
+  display: flex;
 }
 
 .service-card {
@@ -614,6 +620,8 @@ section {
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .service-card:hover {
@@ -767,6 +775,12 @@ section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 26px;
+  align-items: stretch;
+}
+
+.vm-grid > .reveal {
+  height: 100%;
+  display: flex;
 }
 
 .vm-card {
@@ -774,6 +788,8 @@ section {
   padding: 40px 36px;
   position: relative;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 .vm-card.vision {
